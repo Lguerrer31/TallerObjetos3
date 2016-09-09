@@ -59,4 +59,24 @@ public class Complejos {
         return m;
     }
     
+    public Complejos multiplicacion(Complejos c2) throws CeroException{
+        int n, n1;
+        Complejos m;
+        n = (this.n * c2.n) - (this.n1 * c2.n1);
+        n1 = (this.n * c2.n1) + (this.n1 * c2.n);
+        m = new Complejos(n, n1);
+        return m;
+    }
+    
+    public Complejos division(Complejos c2) throws CeroException{
+        int n, n1, help, hel, he, h;
+        Complejos m;
+        he = c2.n + c2.n1;
+        hel = he * -1;
+        n = (this.n + this.n1 * hel) + (c2.n + c2.n1 * hel);
+        n1 = c2.n * c2.n1;
+        m = new Complejos(n, n1);
+        return m;
+    }
+    
 }

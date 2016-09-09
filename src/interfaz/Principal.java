@@ -18,6 +18,9 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
+        
+        txtComplejo1.requestFocusInWindow();
+        
     }
 
     /**
@@ -128,32 +131,38 @@ public class Principal extends javax.swing.JFrame {
         int n, n1, n2, n3, n4, n5;
         Complejos c, c2, c3 = null;
         int op = cmbOperaciones.getSelectedIndex();
-        
+
         n = Integer.parseInt(txtComplejo1.getText());
         n1 = Integer.parseInt(txtComplejo2.getText());
         n2 = Integer.parseInt(txtComplejo3.getText());
         n3 = Integer.parseInt(txtComplejo4.getText());
-        
-        try{
+
+        try {
             c = new Complejos(n, n1);
             c2 = new Complejos(n2, n3);
-            
-            switch (op){
+
+            switch (op) {
                 case 0:
                     c3 = c.suma(c2);
                     break;
                 case 1:
                     c3 = c.resta(c2);
+                    break;
+                case 2:
+                    c3 = c.multiplicacion(c2);
+                    break;
+                case 3:
+                    c3 = c.division(c2);
+                    break;
             }
-            
-            
-                    } catch (CeroException ex) {
+
+        } catch (CeroException ex) {
             Helper.mensaje(null, "No se puede ingresar 0", "Error", 2);
         }
-        
-        txtResultado.setText("(" + c3.getN() + "+" + c3.getN1() + ")i");
-        
-        
+
+        txtResultado.setText("(" + c3.getN() + c3.getN1() + ")i");
+
+
     }//GEN-LAST:event_cmdResolverActionPerformed
 
     /**
