@@ -18,9 +18,9 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
-        
+
         txtComplejo1.requestFocusInWindow();
-        
+
     }
 
     /**
@@ -52,22 +52,42 @@ public class Principal extends javax.swing.JFrame {
 
         txtComplejo1.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         txtComplejo1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtComplejo1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtComplejo1KeyTyped(evt);
+            }
+        });
         jPanel1.add(txtComplejo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 30, -1));
 
         txtComplejo2.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         txtComplejo2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtComplejo2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtComplejo2KeyTyped(evt);
+            }
+        });
         jPanel1.add(txtComplejo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 30, -1));
 
         txtComplejo3.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         txtComplejo3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtComplejo3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtComplejo3KeyTyped(evt);
+            }
+        });
         jPanel1.add(txtComplejo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 30, -1));
 
         txtComplejo4.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         txtComplejo4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtComplejo4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtComplejo4KeyTyped(evt);
+            }
+        });
         jPanel1.add(txtComplejo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 30, -1));
 
         cmbOperaciones.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        cmbOperaciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Suma", "Resta", "Multiplicación", "División" }));
+        cmbOperaciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Suma", "Resta", "Multiplicación" }));
         jPanel1.add(cmbOperaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 60, -1));
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
@@ -132,38 +152,97 @@ public class Principal extends javax.swing.JFrame {
         Complejos c, c2, c3 = null;
         int op = cmbOperaciones.getSelectedIndex();
 
-        n = Integer.parseInt(txtComplejo1.getText());
-        n1 = Integer.parseInt(txtComplejo2.getText());
-        n2 = Integer.parseInt(txtComplejo3.getText());
-        n3 = Integer.parseInt(txtComplejo4.getText());
+        if (txtComplejo1.getText().trim().isEmpty()) {
+            Helper.mensaje(null, "Por favor digite los datos", "Error", 2);
+            txtComplejo1.requestFocusInWindow();
+        } else if (txtComplejo2.getText().trim().isEmpty()) {
+            Helper.mensaje(null, "Por favor digite los datos", "Error", 2);
+            txtComplejo2.requestFocusInWindow();
+        } else if (txtComplejo3.getText().trim().isEmpty()) {
+            Helper.mensaje(null, "Por favor digite los datos", "Error", 2);
+            txtComplejo3.requestFocusInWindow();
+        } else if (txtComplejo4.getText().trim().isEmpty()) {
+            Helper.mensaje(null, "Por favor digite los datos", "Error", 2);
+            txtComplejo4.requestFocusInWindow();
+        } else {
 
-        try {
-            c = new Complejos(n, n1);
-            c2 = new Complejos(n2, n3);
+            n = Integer.parseInt(txtComplejo1.getText());
+            n1 = Integer.parseInt(txtComplejo2.getText());
+            n2 = Integer.parseInt(txtComplejo3.getText());
+            n3 = Integer.parseInt(txtComplejo4.getText());
 
-            switch (op) {
-                case 0:
-                    c3 = c.suma(c2);
-                    break;
-                case 1:
-                    c3 = c.resta(c2);
-                    break;
-                case 2:
-                    c3 = c.multiplicacion(c2);
-                    break;
-                case 3:
-                    c3 = c.division(c2);
-                    break;
+            try {
+                c = new Complejos(n, n1);
+                c2 = new Complejos(n2, n3);
+
+                switch (op) {
+                    case 0:
+                        c3 = c.suma(c2);
+                        break;
+                    case 1:
+                        c3 = c.resta(c2);
+                        break;
+                    case 2:
+                        c3 = c.multiplicacion(c2);
+                        break;
+                    case 3:
+                        c3 = c.division(c2);
+                        break;
+                }
+
+            } catch (CeroException ex) {
+                Helper.mensaje(null, "No se puede ingresar 0", "Error", 2);
             }
 
-        } catch (CeroException ex) {
-            Helper.mensaje(null, "No se puede ingresar 0", "Error", 2);
+            txtResultado.setText("(" + c3.getN() + c3.getN1() + ")i");
+
         }
 
-        txtResultado.setText("(" + c3.getN() + c3.getN1() + ")i");
-
-
     }//GEN-LAST:event_cmdResolverActionPerformed
+
+    private void txtComplejo1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtComplejo1KeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+
+        if (!Character.isDigit(c)) {
+            getToolkit().beep();
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtComplejo1KeyTyped
+
+    private void txtComplejo2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtComplejo2KeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+
+        if (!Character.isDigit(c)) {
+            getToolkit().beep();
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtComplejo2KeyTyped
+
+    private void txtComplejo3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtComplejo3KeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+
+        if (!Character.isDigit(c)) {
+            getToolkit().beep();
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtComplejo3KeyTyped
+
+    private void txtComplejo4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtComplejo4KeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+
+        if (!Character.isDigit(c)) {
+            getToolkit().beep();
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtComplejo4KeyTyped
 
     /**
      * @param args the command line arguments
